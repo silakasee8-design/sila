@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: sila-ai
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: JWT_SECRET
+        generateValue: true
+      - key: INTEGRATION_API_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sila-db
+          property: connectionString
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_ACCESS_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+
+databases:
+  - name: sila-db
+    region: oregon
+    plan: free
+    databaseName: sila
+    userName: sila

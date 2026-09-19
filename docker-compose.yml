@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sila-ai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sila
+      POSTGRES_USER: sila
+      POSTGRES_PASSWORD: sila_local_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - sila-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  sila-postgres-data:
